@@ -1,0 +1,46 @@
+services:
+  # Oracle Database Service
+  oracle-db:
+    image: gvenzl/oracle-free:latest
+    container_name: oracle-db
+    ports:
+      - "1522:1521"
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=appuser
+      - APP_USER_PASSWORD=apppwd
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
+
+  # Spring Boot Application Service
+  app:
+    image: jobcompanyapp:0.0.1-SNAPSHOT
+    container_name: jobcompanyapp
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/JobCompanyApp-0.0.1-SNAPSHOT.jar:/jobapp.jar
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    command: ["java", "-jar", "/jobapp.jar"]
+    depends_on:
+      oracle-db:
+        condition: service_healthy
+    networks:
+      - app-network
+    restart: on-failure
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  oracle-data:
+    driver: local
