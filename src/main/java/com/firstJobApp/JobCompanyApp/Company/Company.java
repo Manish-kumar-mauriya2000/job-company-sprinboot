@@ -52,4 +52,5 @@ public class Company {
     public void setJobs(List<Job> job) {
         this.jobs= job;
     }
+
 }
