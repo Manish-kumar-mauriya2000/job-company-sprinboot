@@ -2,6 +2,7 @@ package com.firstJobApp.JobCompanyApp.Company;
 
 import java.util.List;
 
+
 public interface CompanyService {
     List<Company> getAllCompany();
     Company getCompanyById(Long id);

@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/company")
 public class CompanyController {
-    private CompanyServiceImp companyServiceImp;
+    private final CompanyServiceImp companyServiceImp;
 
     public CompanyController(CompanyServiceImp companyServiceImp) {
         this.companyServiceImp = companyServiceImp;

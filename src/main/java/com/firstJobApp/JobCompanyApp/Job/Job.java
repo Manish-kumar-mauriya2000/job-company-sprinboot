@@ -1,6 +1,5 @@
 package com.firstJobApp.JobCompanyApp.Job;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.firstJobApp.JobCompanyApp.Company.Company;
 import jakarta.persistence.*;
 
